@@ -1,0 +1,46 @@
+.tabbable
+  %ul.nav.nav-tabs
+    %li.active
+      %a{ :href => "#tab1", :'data-toggle' => "tab"} Work log
+    %li
+      %a{ :href => "#tab2", :'data-toggle' => "tab"} Work to do
+
+.tab-content
+
+  .tab-pane.active{ id:"tab1"}
+
+    %h2  
+      = "#{@notes.count} log entries total" 
+    
+    %a.btn{ href:"/add/entry" } Add new entry
+    %table.table
+      %thead
+        %tr
+          %th Created
+          %th Content
+          %th Type
+          %th For task
+      %tbody
+        - @notes.each do |note|
+          %tr
+            %td #{note.created_at.strftime("%Y/%m/%d")}
+            %td #{note.content}
+            %td #{note.work_type.name}
+            %td #{note.work_to_do.name}
+
+    
+
+  .tab-pane{ id:"tab2"}
+    %h2
+      = "Hay #{@todos.count} tareas por hacer"
+    %a.btn{ href:"/add/todo" } Add new todo
+    %table.table
+      %thead
+        %tr 
+          %th Work Title
+          %td "# entries"
+      %tbody  
+        - @todos.each do |todo|
+          %tr
+            %td #{todo.name}
+            %td #{todo.worklog_entries.count}

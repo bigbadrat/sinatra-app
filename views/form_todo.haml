@@ -1,0 +1,19 @@
+%h1.well
+  New task to be done
+
+%form.form-horizontal{ method:"post", action:"/add/todo"}
+  .control-group
+    %label.control-label{ for:"input_name"} Name: 
+    %input{id:"input_name", name:"name"}
+
+  .control-group
+    %label.control-label{ for:"input_description"} What needs to be done: 
+    %textarea{rows:"3", id:"input_description", name:"description", placeholder:"Solve a bug? A new feature? Write a spec?"}
+
+  .control-group
+    %label.control-label{ for:"input_star"} Related STAR: 
+    %input{id:"input_star", name:"star"}
+
+  .control-group
+    %button.btn.btn-primary{type:"submit" }Save log
+

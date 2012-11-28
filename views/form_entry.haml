@@ -1,0 +1,30 @@
+%h1.well
+  New log about work that was done
+
+%form.form-horizontal{ method:"post", action:"/add/entry"}
+  .control-group
+    %label.control-label{ for:"input_name"} What did you do: 
+    %textarea{rows:"3", id:"input_title", name:"name", placeholder:"What is this work?"}
+
+  .control-group
+    %label.control-label{ for:"input_type"} Type: 
+    %select{id:"input_type", name:"type"}
+      - @work_types.each do |type|
+        %option{value:"#{type.id}"} #{type.name}
+
+  .control-group
+    %label.control-label{ for:"input_date"} Type: 
+    %select{id:"input_date", name:"date"}
+      - @time_list.each_index do |id|
+        %option{value:"#{id}"} #{@time_list[id].strftime('%d %b %Y - %a')}
+
+  .control-group
+    %label.control-label{ for:"input_type"} Related to: 
+    %select{id:"input_todo", name:"todo"}
+      - @work_to_do.each do |todo|
+        %option{value:"#{todo.id}"} #{todo.name}        
+        
+  .control-group
+    %button.btn.btn-primary{type:"submit" }Save log
+
+

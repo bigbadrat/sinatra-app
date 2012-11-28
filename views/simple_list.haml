@@ -1,0 +1,13 @@
+
+%h1.well Simple list for "#{@title}"
+
+%table.table
+  %tr
+    - @props.each do |prop|
+      %th #{prop.name}
+  - @items.each do |item|
+    %tr
+      - @props.each do |prop|
+        %td #{item.send(prop.name)}
+    
+
