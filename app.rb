@@ -47,17 +47,11 @@ end
 #The actual handler for the "add" action that actually adds stuff
 post '/add/:thing' do
   if params[:thing] == "entry"
-    puts "adding a new entry!"
-    puts params
     new_item = WorklogEntry.new
     new_item.content = params[:content]
     new_item.work_type = WorkType.get( params[:type] )
     new_item.work_to_do = WorkToDo.get( params[:todo] )
-    puts new_item.content
-    puts new_item.work_type.id
-    puts new_item.work_to_do.id
-    puts "all looks fine"
-    puts new_item.save
+    new_item.save
   elsif params[:thing] == "todo"
     new_item = WorkToDo.new
     new_item.name = params[:name]
