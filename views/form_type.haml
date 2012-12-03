@@ -1,0 +1,23 @@
+.span5
+  %h1.well
+    New type of task
+
+  %form.form-horizontal{ method:"post", action:"/add/type"}
+    .control-group
+      %label.control-label{ for:"input_name"} Name: 
+      %input{id:"input_name", name:"name"}
+
+    .control-group
+      %button.btn.btn-primary{type:"submit" } Add the new type
+
+.span2
+.span3
+  %h1 Existing types
+  %table.table
+    %tr
+      - @props.each do |prop|
+        %th #{prop.name}
+    - @types.each do |item|
+      %tr
+        - @props.each do |prop|
+          %td #{item.send(prop.name)}

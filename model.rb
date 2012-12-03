@@ -9,7 +9,6 @@ class WorklogEntry
   property :id, Serial
   property :content, Text, :required => true
   property :complete, Boolean, :required => true, :default => false
-  property :type, Text
   property :created_at, DateTime
   property :updated_at, DateTime
 

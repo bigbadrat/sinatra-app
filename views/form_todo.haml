@@ -1,19 +1,31 @@
-%h1.well
-  New task to be done
+.span6
+  %h1.well
+    New task to be done
 
-%form.form-horizontal{ method:"post", action:"/add/todo"}
-  .control-group
-    %label.control-label{ for:"input_name"} Name: 
-    %input{id:"input_name", name:"name"}
+  %form.form-horizontal{ method:"post", action:"/add/todo"}
+    .control-group
+      %label.control-label{ for:"input_name"} Name: 
+      %input{id:"input_name", name:"name"}
 
-  .control-group
-    %label.control-label{ for:"input_description"} What needs to be done: 
-    %textarea{rows:"3", id:"input_description", name:"description", placeholder:"Solve a bug? A new feature? Write a spec?"}
+    .control-group
+      %label.control-label{ for:"input_description"} What needs to be done: 
+      %textarea{rows:"3", id:"input_description", name:"description", placeholder:"Solve a bug? A new feature? Write a spec?"}
 
-  .control-group
-    %label.control-label{ for:"input_star"} Related STAR: 
-    %input{id:"input_star", name:"star"}
+    .control-group
+      %label.control-label{ for:"input_star"} Related STAR: 
+      %input{id:"input_star", name:"star_number"}
 
-  .control-group
-    %button.btn.btn-primary{type:"submit" }Save log
+    .control-group
+      %button.btn.btn-primary{type:"submit" } Add task to do
 
+.span5
+  %h1.well
+    Current tasks 
+  %table.table
+    %tr
+      - @props.each do |prop|
+        %th #{prop}
+    - @items.each do |item|
+      %tr
+        - @props.each do |prop|
+          %td #{item.send(prop)}
