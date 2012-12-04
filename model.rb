@@ -36,5 +36,9 @@ class WorkToDo
   property :updated_at, DateTime
 
   has n, :worklog_entries
+
+  def self.tasks_worked(filter = {})
+    all(filter).select{ |t| t.worklog_entries.count > 0 }
+  end
 end
 DataMapper.finalize.auto_upgrade!

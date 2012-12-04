@@ -3,7 +3,7 @@
 
 .divider
 
-- @todos.each do |todo|
+- @todos.select{|x| x.worklog_entries.count > 0 }.each do |todo|
   %table.table
     %thead
       %tr
