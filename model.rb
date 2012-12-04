@@ -8,9 +8,7 @@ class WorklogEntry
   include DataMapper::Resource
   property :id, Serial
   property :content, Text, :required => true
-  property :complete, Boolean, :required => true, :default => false
-  property :created_at, DateTime
-  property :updated_at, DateTime
+  property :date_performed, DateTime
 
   belongs_to :work_type
   belongs_to :work_to_do
@@ -31,6 +29,7 @@ class WorkToDo
 
   property :id, Serial
   property :name, Text, :required => true
+  property :complete, Boolean, :required => true, :default => false
   property :description, Text
   property :star_number, Text
   property :created_at, DateTime

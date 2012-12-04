@@ -13,7 +13,14 @@ set :public_folder, File.dirname(__FILE__) + '/assets'
 
 
 get '/' do
-  @notes = WorklogEntry.all :order => :id.asc  
+  @notes = WorklogEntry.all :order => :date_performed.desc
+  @todos = WorkToDo.all
+  haml :home  
+end 
+
+get '/last_week' do
+  last_week = Time.now - 60*60*24*8
+  @notes = WorklogEntry.all :order => :id.asc , :date_performed.gt => last_week
   @todos = WorkToDo.all
   haml :home  
 end 
@@ -30,7 +37,7 @@ get '/add/:thing' do
     today = Time.now
     @time_list = [today]
     1.upto(25).each do |x| 
-      @time_list.push( today - 60*60*25*x) 
+      @time_list.push( today - 60*60*24*x) 
     end
   	haml :form_entry
   elsif params[:thing] == "todo"
@@ -50,13 +57,21 @@ post '/add/:thing' do
     new_item = WorklogEntry.new
     new_item.content = params[:content]
     new_item.work_type = WorkType.get( params[:type] )
-    new_item.work_to_do = WorkToDo.get( params[:todo] )
+    wtd = WorkToDo.get( params[:todo] )
+    wtd.updated_at = Time.now
+    new_item.work_to_do = wtd
+    new_item.date_performed = Time.now - Integer(params[:date])*60*60*24
     new_item.save
+    wtd.save
   elsif params[:thing] == "todo"
     new_item = WorkToDo.new
     new_item.name = params[:name]
     new_item.description = params[:description]
     new_item.star_number = params[:star_number]
+    new_item.save
+  elsif params[:thing] == "type"
+    new_item = WorkType.new 
+    new_item.name = params[:name]
     new_item.save
   end
   redirect to("/")

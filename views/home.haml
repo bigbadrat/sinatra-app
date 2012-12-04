@@ -23,7 +23,7 @@
       %tbody
         - @notes.each do |note|
           %tr
-            %td #{note.created_at.strftime("%Y/%m/%d")}
+            %td #{note.date_performed.strftime("%Y/%m/%d")}
             %td #{note.content}
             %td #{note.work_type.name}
             %td #{note.work_to_do.name}
