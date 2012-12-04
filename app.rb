@@ -19,10 +19,9 @@ get '/' do
 end 
 
 get '/last_week' do
-  last_week = Time.now - 60*60*24*8
-  @notes = WorklogEntry.all :order => :id.asc , :date_performed.gt => last_week
-  @todos = WorkToDo.all
-  haml :home  
+  @last_week = Time.now - 60*60*24*8
+  @todos = WorkToDo.all :order => :updated_at.asc , :updated_at.gt => @last_week
+  haml :report_by_todo  
 end 
 
 get '/about' do

@@ -1,0 +1,20 @@
+%h2  
+  = "#{@todos.count} tasks were updated this week" 
+
+.divider
+
+- @todos.each do |todo|
+  %table.table
+    %thead
+      %tr
+        %th #{todo.name}
+    %tbody      
+      - todo.worklog_entries(:date_performed.gt => @last_week).each do |entry|    
+        %tr
+          %td #{entry.date_performed.strftime("%Y/%m/%d")}
+          %td #{entry.content}
+          %td #{entry.work_type.name}
+
+
+
+
